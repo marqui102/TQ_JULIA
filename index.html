@@ -14,6 +14,7 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
+      transition: background-color 1s ease;
     }
     .container {
       position: relative;
@@ -26,11 +27,28 @@
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       background-color: white;
+      transition: all 1s ease;
+      z-index: 10;
+      flex-direction: row;
+    }
+    .container.fullscreen {
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      box-shadow: none;
+      flex-direction: column;
+      padding: 40px 80px;
+      justify-content: flex-start;
     }
     .photo {
       width: 33%;
       height: 100%;
       object-fit: cover;
+      transition: all 1s ease;
+      border-radius: 20px;
+    }
+    .container.fullscreen .photo {
+      display: none;
     }
     .heart {
       position: absolute;
@@ -38,8 +56,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
       cursor: pointer;
-      transition: transform 0.3s, opacity 1s, top 1s;
-      z-index: 10;
+      transition: transform 0.3s;
+      z-index: 20;
     }
     .heart img {
       width: 100px;
@@ -50,7 +68,6 @@
     }
     .heart.hide {
       opacity: 0;
-      top: 30%;
       pointer-events: none;
     }
     .letter {
@@ -60,12 +77,30 @@
       width: 100%;
       height: 100%;
       background: white;
-      padding: 30px;
+      padding: 30px 40px;
       box-sizing: border-box;
       opacity: 0;
-      transition: opacity 1s;
+      transition: opacity 1s ease 1s;
       overflow-y: auto;
       text-align: center;
+      z-index: 15;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+    }
+    .container.fullscreen .letter {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      opacity: 1 !important;
+      border-radius: 0;
+      transition-delay: 0s;
+      overflow-y: auto;
+      display: block;
+      text-align: left;
     }
     .letter.open {
       opacity: 1;
@@ -73,19 +108,23 @@
     .letter h2 {
       color: #d63384;
       margin-bottom: 20px;
+      text-align: center;
     }
     .letter p {
       font-size: 18px;
       color: #333;
       line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto 15px auto;
     }
     .final-message {
       margin-top: 30px;
-      font-size: 24px;
+      font-size: 28px;
       color: #ff3366;
       font-weight: bold;
       animation: fadeInUp 2s ease-in-out forwards, pulseGlow 3s ease-in-out infinite;
       opacity: 0;
+      text-align: center;
     }
     .letter.open .final-message {
       opacity: 1;
@@ -133,16 +172,16 @@
     Tu navegador no soporta el elemento de audio.
   </audio>
 
-  <div class="container">
+  <div class="container" id="container">
     <img src="foto1.png" class="photo" alt="Foto izquierda" />
-    <img src="foto2.png" class="photo" alt="Foto derecha" style="right: 0;" />
+    <img src="foto2.png" class="photo" alt="Foto derecha" />
 
     <div class="heart" id="heart" onclick="openLetter()">
       <img src="https://images.emojiterra.com/google/noto-emoji/animated-emoji/1fa75.gif" alt="Corazón azul" />
     </div>
 
     <div class="letter" id="letter">
-      <h2>Para mi Peque</h2>
+      <h2>Para Mi Peque</h2>
       <p>Desde hace tiempo mis pensamientos siempre terminan en ti. En cada gesto, en cada palabra tuya, encuentro una paz que no sabía que buscaba. Me haces sentir especial de una manera que es difícil describir, pero fácil de sentir.</p>
       <p>Cuando pienso en tus ojos, en tu sonrisa, en la forma en que hablas, mi corazón late con una emoción que pocas veces he sentido. Me inspiras, me haces querer ser mejor cada día, solo por tener la dicha de verte sonreír.</p>
       <p>No sé qué nos deparará el futuro, pero sé lo que siento ahora: un cariño profundo, sincero y puro hacia ti. Me gustaría tener la oportunidad de caminar a tu lado, de conocerte más, de compartir momentos, de cuidarte y apoyarte como mereces.</p>
@@ -156,8 +195,13 @@
 
   <script>
     function openLetter() {
-      document.getElementById('letter').classList.add('open');
-      document.getElementById('heart').classList.add('hide');
+      const heart = document.getElementById('heart');
+      const container = document.getElementById('container');
+      const letter = document.getElementById('letter');
+
+      heart.classList.add('hide');
+      container.classList.add('fullscreen');
+      letter.classList.add('open');
     }
   </script>
 </body>
