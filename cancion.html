@@ -1,1 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Julia - Nuestra Cancion</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Georgia', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      color: #d63384;
+      font-size: 48px;
+      margin-bottom: 30px;
+    }
+
+    .lyrics {
+      font-size: 20px;
+      color: #444;
+      white-space: pre-line;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .personal-message {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff3366;
+      animation: pulse 2s infinite, fadeInUp 2s ease-in-out;
+    }
+
+    #playBtn {
+      padding: 15px 30px;
+      font-size: 22px;
+      border: none;
+      border-radius: 10px;
+      background: #ff66a3;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.3s;
+    }
+    #playBtn:hover {
+      background: #ff3385;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hearts span {
+      position: absolute;
+      color: #ff6699;
+      font-size: 24px;
+      animation: floatHearts 10s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100%) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="container" id="startScreen">
+  <h1>🎵 Nuestra Canción 🎵</h1>
+  <button id="playBtn" onclick="start()">Reproducir</button>
+</div>
+
+<div class="container" id="songScreen" style="display:none;">
+  <h1>Te Quiero Julia</h1>
+  <div class="lyrics">
+[Verso 1]
+Desde el primer día que te vi
+supe que eras todo para mí
+Tus risas llenaban de luz el gris
+Tus ojos, mi refugio al existir
+
+Calor en tus manos, magia al tocar
+Tus palabras me hacían volar
+Aunque hoy el destino nos quiso alejar
+Mi corazón no puede olvidar
+
+[Pre-Estribillo]
+(Y aún te espero, en mi silencio…)
+(Y aún te espero, en mi silencio…)
+
+[Estribillo]
+Te quiero Julia, siempre juntos
+Aunque el tiempo nos haya separado
+Te quiero Julia, sigo esperando
+Por si la vida nos da un segundo intento
+(“siempre juntos, siempre juntos.......”)
+(“te espero, te espero......t-t-t-espero.....”)
+
+[Verso 2]
+Cada instante fue un regalo sin igual
+Tus sonrisas, mi lugar especial
+Aunque ahora caminemos en paralelo
+Mis sentimientos siguen eternos
+
+No busco cambiar tu presente
+Solo confesar lo que el alma siente
+En cada latido, en cada pensamiento
+Aún habita ese dulce recuerdo
+
+[Pre-Estribillo]
+(Y aún te espero… aunque sea en silencio…)
+(Y aún te espero… aunque sea en silencio…)
+
+[Estribillo]
+Te quiero Julia, siempre juntos
+Aunque el tiempo nos haya separado...
+Te quiero Julia, sigo esperando
+Por si la vida nos da un segundo intento
+(coros en eco: “siempre juntos”)
+(coros en eco: “te espero”)
+(coros en eco: “te quiero, Julia”)
+
+[Puente]
+Gracias por existir, por ser tú
+Por cada mirada, por cada virtud
+Si algún día necesitas de mí
+Aquí estaré, solo tienes que venir
+(coros suaves acompañando: “Aquí estaré… siempre…”)
+
+[Estribillo final]
+Te quiero Julia, siempre juntos
+Aunque el tiempo nos haya separado
+Te quiero Julia, sigo esperando
+Por si la vida nos da un segundo intento
+(coros finales: “te quiero, Julia” – “siempre juntos” – “te espero”)
+  </div>
+
+  <div class="personal-message">
+    ❤️ Julia, eres mi canción favorita. Gracias por existir ❤️
+  </div>
+</div>
+
+<audio id="audioPlayer" loop>
+  <source src="Te Quiero Julia.mp3" type="audio/mpeg">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+
+<script>
+  function start() {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('songScreen').style.display = 'block';
+    document.getElementById('audioPlayer').play();
+    createHearts();
+  }
+
+  function createHearts() {
+    const heartsContainer = document.getElementById('hearts');
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('span');
+      heart.textContent = '❤';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.fontSize = (16 + Math.random() * 24) + 'px';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heartsContainer.appendChild(heart);
+    }
+  }
+</script>
+
+</body>
+</html>
