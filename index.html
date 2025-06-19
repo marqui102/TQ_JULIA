@@ -32,14 +32,15 @@
       flex-direction: row;
     }
     .container.fullscreen {
-      width: 90vw;
-      height: 90vh;
+      width: 100vw;
+      height: 100vh;
       border-radius: 0;
       box-shadow: none;
       flex-direction: column;
       padding: 40px 80px;
       justify-content: flex-start;
       background: linear-gradient(135deg, #fce4ec, #f8bbd0, #e1bee7, #ce93d8);
+      overflow: hidden;
     }
     .photo {
       width: 33%;
@@ -125,6 +126,9 @@
       font-weight: bold;
       animation: fadeInUp 2s ease-in-out forwards, pulseGlow 3s ease-in-out infinite;
       opacity: 0;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
       text-align: center;
     }
     .letter.open .final-message {
